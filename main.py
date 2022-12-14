@@ -8,10 +8,10 @@ MODEL_ID = "runwayml/stable-diffusion-v1-5"
 @st.cache(suppress_st_warning=True, allow_output_mutation=True)
 def init_pipe():
     if torch.cuda.is_available():
-        pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID)
+        pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.float16, revision="fp16")
         pipe = pipe.to("cuda")
     else:
-        pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID)
+        pipe = StableDiffusionPipeline.from_pretrained(MODEL_ID, torch_dtype=torch.float16, revision="fp16")
         pipe = pipe.to("cpu")
     pipe.safety_checker = lambda images, clip_input: (images, False)
     return pipe
