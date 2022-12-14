@@ -31,7 +31,7 @@ def start_streamlit():
                                     value=50, min_value=1, max_value=800, step=1)
 
     guidance_scale = st.slider("Guidance scale (чем больше значение, тем больше соответствие тексту)",
-                               value=6, min_value=1.1, max_value=15.0, step=0.1)
+                               value=6.0, min_value=1.1, max_value=15.0, step=0.1)
 
     if st.button("Сгенерировать!"):
 
