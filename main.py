@@ -17,9 +17,12 @@ def init_pipe():
     return pipe
 
 
-PIPE = init_pipe()
+def generate_images(prompt, num_inference_steps, guidance_scale):
+    pipe = init_pipe()
+    return pipe(prompt, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images
 
-if __name__ == '__main__':
+
+def start_streamlit():
     st.title("Генератор картинок по тексту")
 
     text_input = st.text_input("Напишите здесь какую катинку вы хотите сгенерировать")
@@ -33,7 +36,11 @@ if __name__ == '__main__':
     if st.button("Сгенерировать!"):
 
         if text_input != "":
-            images = PIPE(text_input, num_inference_steps=num_inference_steps, guidance_scale=guidance_scale).images
+            images = generate_images(text_input, num_inference_steps, guidance_scale)
             st.image(images[0])
         else:
             st.text("Вы не ввели текст. Напишите, какую картинку вы бы хотели получить, и поробуйте снова!")
+
+
+if __name__ == '__main__':
+    start_streamlit()
